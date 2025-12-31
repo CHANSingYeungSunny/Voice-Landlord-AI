@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceAI - 扑克牌识别</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGradient)" stroke-width="3" filter="url(#glow)"/>
+                    <path d="M30 50 Q40 35, 50 50 Q60 65, 70 50" fill="none" stroke="url(#logoGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow)">
+                        <animate attributeName="d" dur="2s" repeatCount="indefinite"
+                            values="M30 50 Q40 35, 50 50 Q60 65, 70 50;
+                                    M30 50 Q40 50, 50 50 Q60 50, 70 50;
+                                    M30 50 Q40 35, 50 50 Q60 65, 70 50"/>
+                    </path>
+                    <circle cx="50" cy="50" r="5" fill="url(#logoGradient)">
+                        <animate attributeName="r" dur="2s" repeatCount="indefinite" values="5;8;5"/>
+                    </circle>
+                </svg>
+                <span class="logo-text">VoiceAI</span>
+            </div>
+            <p class="tagline">扑克牌语音识别系统</p>
+        </header>
+
+        <main class="main-content">
+            <div class="voice-input-section">
+                <div class="mic-button-container">
+                    <button id="micButton" class="mic-button" aria-label="开始语音输入">
+                        <svg class="mic-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 25 C40 25, 32 33, 32 43 L32 55 C32 60, 35 65, 40 67 L40 75 C40 78, 42 80, 45 80 L55 80 C58 80, 60 78, 60 75 L60 67 C65 65, 68 60, 68 55 L68 43 C68 33, 60 25, 50 25 Z" fill="currentColor"/>
+                            <path d="M25 55 C25 70, 35 80, 50 80 C65 80, 75 70, 75 55" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M40 85 L60 85" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                        <div class="wave-ring"></div>
+                        <div class="wave-ring wave-ring-2"></div>
+                        <div class="wave-ring wave-ring-3"></div>
+                    </button>
+                    <p id="micStatus" class="mic-status">点击开始语音输入</p>
+                </div>
+
+                <div id="transcript" class="transcript-box">
+                    <h3>语音内容</h3>
+                    <p id="speechText">请开始说话...</p>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <div class="result-header">
+                    <h3>识别结果</h3>
+                    <div class="result-actions">
+                        <button id="copyButton" class="action-button" disabled>
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                            复制
+                        </button>
+                        <button id="clearButton" class="action-button" disabled>
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                            清除
+                        </button>
+                    </div>
+                </div>
+                <div id="resultContent" class="result-content">
+                    <div class="placeholder">
+                        <svg viewBox="0 0 100 100" width="60" height="60">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.3"/>
+                            <path d="M35 50 L45 50 L50 40 L55 60 L60 50 L65 50" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.5"/>
+                        </svg>
+                        <p>等待语音输入...</p>
+                    </div>
+                </div>
+                <div class="api-info">
+                    <span id="apiStatus" class="api-status">就绪</span>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>支持格式: 玩家A在第一轮出了一张红桃K</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
